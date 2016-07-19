@@ -2,20 +2,17 @@ FROM sbeliakou/centos:6.7
 
 MAINTAINER Siarhei Beliakou (sbeliakou@gmail.com) 
 
-LABEL nginx_version="1.10.1"
+ENV NGINX_VER="1.10.1"
 
-WORKDIR /opt/nginx/public
-
-
-#NGINX install
 ADD nginx.repo /etc/yum.repos.d/
 RUN yum install -y nginx 
 
+VOLUME /usr/share/nginx/html 
 
-#
-VOLUME /opt/nginx/public
+LABEL nginx_version=$NGINX_VER
+WORKDIR /usr/share/nginx/html 
+COPY index.html .
 
-ENV NGINX_VER="1.10.1"
 
 EXPOSE 80
 
